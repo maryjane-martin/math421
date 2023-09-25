@@ -86,18 +86,18 @@ names(df)[5] <- 'Deaths'
 
 7. Find the average number of cases per day. Find the maximum cases a day.  
 ```{r}
-mean(df$cases, na.rm=TRUE)
-max(df$cases, na.rm=TRUE)
+mean(df$Cases, na.rm=TRUE)
+max(df$Cases, na.rm=TRUE)
 ```
 
 8. How many states are there in the data?  
 ```{r}
-length(table(df$state))
+length(table(df$State))
 ```
 
 9. Create a new variable `weekdays` to store the weekday for each rows. 
 ```{r}
-df$weekdays <- weekdays(df$date)
+df$weekdays <- weekdays(df$Date)
 ```
 
 10. Create the categorical variable `death2` variable taking the values as follows
@@ -107,14 +107,14 @@ df$weekdays <- weekdays(df$date)
 
 Find the frequency and relative frequency of `no_death` and `has_death`. 
 ```{r}
-df$death2 <- ifelse(df$deaths==0,
+df$death2 <- ifelse(df$Deaths==0,
                     'no_death','has_death')
 table(df$death2)
 ```
 
 11. Find the first quartile (Q1), second quartile (Q2) and and third quartile (Q3) of the variable `death`. (Hint:  Use the `summary` function)
 ```{r}
-summary(df$deaths)
+summary(df$Deaths)
 ```
 
 12. Create the categorical variable `death3` variable taking the values as follows
@@ -125,9 +125,9 @@ summary(df$deaths)
 
 - `high_death` if the number of deaths greater than Q3
 ```{r}
-df$death3 <- case_when(df$death<2 ~ 'low_death',
-                       df$death<5 ~ 'mid_death',
-                       TRUE~'high_death')
+df$death3 <- c(df$Deaths<1171 ~ 'low_death',
+                       df$Deaths<=14912~ 'mid_death',
+                       TRUE ~'high_death')
 table(df$death3)
 ```
 
@@ -139,14 +139,14 @@ by(df1$New_cases, df1$WHO_region, mean)
 
 14. Find the median cases by weekdays in Rhode Island in 2021 
 ```{r}
-df$weekdays <- weekdays(df$date)
+df$weekdays <- weekdays(df$Date)
 df1 = df[df$state== 'Rhode Island',]
 by(df1$deaths,df1$weekdays, median)
 ```
 
 15. Compare the median cases in Rhode Island in June, July, August and September in 2021. 
 ```{r}
-df$month = months(df$date)
+df$month = months(df$Date)
 ```
 
 ```{r}
@@ -166,16 +166,54 @@ head(df2)
 ```
 
 - str
+```{r}
+str(df2)
+```
+
 - names
+```{r}
+names(df2)
+```
+
 - mean, min, max
+```{r}
+mean(df2$Survived, na.rm=TRUE)
+min(df2$Survived, na.rm=TRUE)
+max(df2$Survived, na.rm=TRUE)
+```
 - table
+```{r}
+table(df2$Pclass)
+```
+
 - is.na
+```{r}
+sum(is.na(df))
+```
+
 - colSums
+```{r}
+colSums(is.na(df2))
+```
+
 - class
+```{r}
+class(df2$Survived)
+```
+
 - cor
+```{r}
+cor(df2$Pclass, df2$Survived)
+```
+
 - by
+```{r}
+by(df2$Survived, df2$Survived, FUN = mean)
+```
+
 - ifelse
 - case_when
+
 
 17.  In the dataset in #16, practice the follows.  You can reuse the code of 16. 
 
