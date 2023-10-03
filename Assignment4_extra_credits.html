@@ -11,7 +11,7 @@
 
 
 
-<title>README</title>
+<title>Assignment 4 - Extra Credits</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,26 +348,255 @@ display: none;
 
 
 
+<h1 class="title toc-ignore">Assignment 4 - Extra Credits</h1>
 
 </div>
 
 
-<div id="math-421-statistical-analysis-with-r" class="section level1">
-<h1>Math 421: Statistical Analysis with R</h1>
-<div id="assignments" class="section level2">
-<h2>Assignments</h2>
+<p><strong><em>How to do it?</em></strong>:</p>
 <ul>
-<li><a href="Assignment1.html">Assignment 1</a></li>
-<li><a href="Assignment2.html">Assignment 2</a></li>
-<li><a href="Assignment3.html">Assignment 3</a></li>
-<li><a href="Assignment4_extra_credits.html">Assignment 4 Extra
-Credit</a></li>
-<li><a href="Assignment5.html">Assignment 5</a></li>
-<li><a href="Assignment6.html">Assignment 6</a></li>
-<li><a href="assignment7.html">Assignment 7</a></li>
+<li><p>Open the Rmarkdown file of this assignment (<a href="assignment4_extra_credits.Rmd">link</a>) in Rstudio.</p></li>
+<li><p>Right under each <strong>question</strong>, insert a code chunk
+(you can use the hotkey <code>Ctrl + Alt + I</code> to add a code chunk)
+and code the solution for the question.</p></li>
+<li><p>Notice that if there is <code>eval=FALSE</code> in the first line
+of the code chunk, the chunk will not be execute.</p></li>
+<li><p><code>Knit</code> the rmarkdown file (hotkey:
+<code>Ctrl + Alt + K</code>) to export an html.</p></li>
+<li><p>Publish the html file to your Githiub Page.</p></li>
 </ul>
-</div>
-</div>
+<p><strong><em>Submission</em></strong>: Submit the link on Github of
+the assignment to Canvas.</p>
+<hr />
+<p>This assignment works with the <a href="../data/imdb_top_1000.csv">IMDB Top 1000 data</a>. Find out more
+information about this data at <a href="https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows">this
+link</a>. Import the data and answer the following questions.</p>
+<ol style="list-style-type: decimal">
+<li>List all the names of the columns of the data</li>
+</ol>
+<pre class="r"><code>library(tidyverse)
+df &lt;- read_csv(&#39;imdb_top_1000.csv&#39;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Which movies have the highest money earned (Gross)?```</li>
+</ol>
+<pre class="r"><code>df %&gt;% 
+  arrange(-Gross)</code></pre>
+<pre><code>## # A tibble: 1,000 × 16
+##    Poster_Link  Series_Title Released_Year Certificate Runtime Genre IMDB_Rating
+##    &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+##  1 https://m.m… Star Wars: … 2015          U           138 min Acti…         7.9
+##  2 https://m.m… Avengers: E… 2019          UA          181 min Acti…         8.4
+##  3 https://m.m… Avatar       2009          UA          162 min Acti…         7.8
+##  4 https://m.m… Avengers: I… 2018          UA          149 min Acti…         8.4
+##  5 https://m.m… Titanic      1997          UA          194 min Dram…         7.8
+##  6 https://m.m… The Avengers 2012          UA          143 min Acti…         8  
+##  7 https://m.m… Incredibles… 2018          UA          118 min Anim…         7.6
+##  8 https://m.m… The Dark Kn… 2008          UA          152 min Acti…         9  
+##  9 https://m.m… Rogue One    2016          UA          133 min Acti…         7.8
+## 10 https://m.m… The Dark Kn… 2012          UA          164 min Acti…         8.4
+## # ℹ 990 more rows
+## # ℹ 9 more variables: Overview &lt;chr&gt;, Meta_score &lt;dbl&gt;, Director &lt;chr&gt;,
+## #   Star1 &lt;chr&gt;, Star2 &lt;chr&gt;, Star3 &lt;chr&gt;, Star4 &lt;chr&gt;, No_of_Votes &lt;dbl&gt;,
+## #   Gross &lt;dbl&gt;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What is the lowest rating (IMDB_Rating)? List five movies have this
+lowest rating.</li>
+</ol>
+<pre class="r"><code>df %&gt;% 
+  arrange(IMDB_Rating)</code></pre>
+<pre><code>## # A tibble: 1,000 × 16
+##    Poster_Link  Series_Title Released_Year Certificate Runtime Genre IMDB_Rating
+##    &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+##  1 https://m.m… Dark Waters  2019          PG-13       126 min Biog…         7.6
+##  2 https://m.m… Searching    2018          U/A         102 min Dram…         7.6
+##  3 https://m.m… Once Upon a… 2019          A           161 min Come…         7.6
+##  4 https://m.m… Nelyubov     2017          R           127 min Drama         7.6
+##  5 https://m.m… The Florida… 2017          A           111 min Drama         7.6
+##  6 https://m.m… Just Mercy   2019          A           137 min Biog…         7.6
+##  7 https://m.m… Gifted       2017          PG-13       101 min Drama         7.6
+##  8 https://m.m… The Peanut … 2019          PG-13       97 min  Adve…         7.6
+##  9 https://m.m… Victoria     2015          &lt;NA&gt;        138 min Crim…         7.6
+## 10 https://m.m… Mustang      2015          PG-13       97 min  Drama         7.6
+## # ℹ 990 more rows
+## # ℹ 9 more variables: Overview &lt;chr&gt;, Meta_score &lt;dbl&gt;, Director &lt;chr&gt;,
+## #   Star1 &lt;chr&gt;, Star2 &lt;chr&gt;, Star3 &lt;chr&gt;, Star4 &lt;chr&gt;, No_of_Votes &lt;dbl&gt;,
+## #   Gross &lt;dbl&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Which year have the most number of movies released in the list? What
+is the total of money earned on that year?</li>
+</ol>
+<pre class="r"><code>df %&gt;% 
+  count(Released_Year) %&gt;% 
+  arrange(-n)</code></pre>
+<pre><code>## # A tibble: 100 × 2
+##    Released_Year     n
+##    &lt;chr&gt;         &lt;int&gt;
+##  1 2014             32
+##  2 2004             31
+##  3 2009             29
+##  4 2013             28
+##  5 2016             28
+##  6 2001             27
+##  7 2006             26
+##  8 2007             26
+##  9 2015             25
+## 10 2012             24
+## # ℹ 90 more rows</code></pre>
+<pre class="r"><code>df %&gt;% 
+  filter(Released_Year == 2014 ) %&gt;% 
+  group_by(Gross) %&gt;%
+  summary(df)</code></pre>
+<pre><code>##  Poster_Link        Series_Title       Released_Year      Certificate       
+##  Length:32          Length:32          Length:32          Length:32         
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##    Runtime             Genre            IMDB_Rating      Overview        
+##  Length:32          Length:32          Min.   :7.600   Length:32         
+##  Class :character   Class :character   1st Qu.:7.700   Class :character  
+##  Mode  :character   Mode  :character   Median :7.900   Mode  :character  
+##                                        Mean   :7.919                     
+##                                        3rd Qu.:8.100                     
+##                                        Max.   :8.600                     
+##                                                                          
+##    Meta_score       Director            Star1              Star2          
+##  Min.   : 60.00   Length:32          Length:32          Length:32         
+##  1st Qu.: 73.25   Class :character   Class :character   Class :character  
+##  Median : 76.00   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 77.87                                                           
+##  3rd Qu.: 82.00                                                           
+##  Max.   :100.00                                                           
+##  NA&#39;s   :2                                                                
+##     Star3              Star4            No_of_Votes          Gross          
+##  Length:32          Length:32          Min.   :  32798   Min.   :   165520  
+##  Class :character   Class :character   1st Qu.: 105126   1st Qu.:  3220036  
+##  Mode  :character   Mode  :character   Median : 374247   Median : 35893537  
+##                                        Mean   : 412249   Mean   : 88891265  
+##                                        3rd Qu.: 614944   3rd Qu.:172385056  
+##                                        Max.   :1512360   Max.   :333176600  
+##                                                          NA&#39;s   :1</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>What is the total money earned per movies on average?</li>
+</ol>
+<pre class="r"><code>df %&gt;% 
+  summarise(mean_gross = mean(Gross, na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_gross
+##        &lt;dbl&gt;
+## 1  68034751.</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Calculate the average number of votes by year. Calculate the average
+number of votes of movies that have IMDB rating greater than 9.</li>
+</ol>
+<pre class="r"><code>df %&gt;% 
+  group_by(Released_Year) %&gt;% 
+  summarise(votes = mean(No_of_Votes, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 100 × 2
+##    Released_Year   votes
+##    &lt;chr&gt;           &lt;dbl&gt;
+##  1 1920           57428 
+##  2 1921          113314 
+##  3 1922           88794 
+##  4 1924           41985 
+##  5 1925           77054.
+##  6 1926           81156 
+##  7 1927          103428.
+##  8 1928           38940.
+##  9 1930           57318 
+## 10 1931          125538 
+## # ℹ 90 more rows</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Calculate the average Meta score in 2020 of movies that have number
+of votes in the third quartile.</li>
+</ol>
+<pre class="r"><code>df %&gt;% 
+  filter(Released_Year == 2020 ) %&gt;% 
+  group_by(&#39;Meta_Score&#39;) %&gt;%
+  summary(df)</code></pre>
+<pre><code>##  Poster_Link        Series_Title       Released_Year      Certificate       
+##  Length:6           Length:6           Length:6           Length:6          
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##    Runtime             Genre            IMDB_Rating      Overview        
+##  Length:6           Length:6           Min.   :7.800   Length:6          
+##  Class :character   Class :character   1st Qu.:7.825   Class :character  
+##  Mode  :character   Mode  :character   Median :8.000   Mode  :character  
+##                                        Mean   :8.133                     
+##                                        3rd Qu.:8.475                     
+##                                        Max.   :8.600                     
+##                                                                          
+##    Meta_score      Director            Star1              Star2          
+##  Min.   :77.00   Length:6           Length:6           Length:6          
+##  1st Qu.:80.00   Class :character   Class :character   Class :character  
+##  Median :82.00   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :82.75                                                           
+##  3rd Qu.:84.75                                                           
+##  Max.   :90.00                                                           
+##  NA&#39;s   :2                                                               
+##     Star3              Star4            No_of_Votes         Gross    
+##  Length:6           Length:6           Min.   : 33931   Min.   : NA  
+##  Class :character   Class :character   1st Qu.: 55069   1st Qu.: NA  
+##  Mode  :character   Mode  :character   Median : 72594   Median : NA  
+##                                        Mean   : 84127   Mean   :NaN  
+##                                        3rd Qu.:106083   3rd Qu.: NA  
+##                                        Max.   :159171   Max.   : NA  
+##                                                         NA&#39;s   :6    
+##  &quot;Meta_Score&quot;      
+##  Length:6          
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## </code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li><p>(Optional - Challenging). The current <code>Runtime</code>
+variable is not a numeric. Use the <code>str_remove</code> function to
+remove <code>min</code> from the variables then use
+<code>as.numeric</code> to convert the variable to numeric. Calculate
+the average running time in the 2010s. Calculate the correlation between
+running time and rating (adding <code>use=&quot;complete.obs&quot;</code> in the
+<code>cor</code> function to ignore the missing values).</p></li>
+<li><p>We can use <code>select_if</code> to select columns satisfying a
+condition and use <code>summarise_if</code> to do calculation on columns
+satisfying a condition. Try the follows to understand these
+functions.</p></li>
+</ol>
+<pre class="r"><code># Select only character columns
+df %&gt;% select_if(is.character)
+
+# Calculate the median of all numeric columns
+df %&gt;% summarise_if(is.numeric, mean, na.rm=TRUE)</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Implement the follows functions or combos. Drawing a comment or
+summary from each calculation. The codes in this question should be
+different from the codes used in other questions.</li>
+</ol>
+<ul>
+<li>select ###select(C1, C2)</li>
+<li>filter ###filter(C4)</li>
+<li>mutate ###mutate(NewColumn = C5, C6)</li>
+<li>summarise ###summarise(MeanC6 = mean(C6))</li>
+<li>arrange ###arrange(C7)</li>
+<li>count ###count()</li>
+<li>count + arrange ###count(C8) %&gt;% ###arrange(desc(x))</li>
+<li>filter + count + arrange ###filter(C9) %&gt;% ###count(3) %&gt;%
+###arrange(desc(x))</li>
+<li>group_by + summarise ###group_by(category) %&gt;%
+###summarise(MeanC6 = mean(C6))</li>
+<li>filter + group_by + summarise ###filter(C9) %&gt;%
+###group_by(category) %&gt;% ###summarise(MeanC6 = mean(C6))</li>
+<li>filter + group_by + summarise + arrange ###filter(C9) %&gt;%
+###group_by(category) %&gt;% ###summarise(MeanC6 = mean(C6)) %&gt;%
+###arrange(desc(x))</li>
+</ul>
 
 
 
