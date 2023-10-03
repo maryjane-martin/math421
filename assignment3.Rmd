@@ -125,10 +125,11 @@ summary(df$Deaths)
 
 - `high_death` if the number of deaths greater than Q3
 ```{r}
-df$death3 <- c(df$Deaths<1171 ~ 'low_death',
-                       df$Deaths<=14912~ 'mid_death',
-                       TRUE ~'high_death')
-table(df$death3)
+library(dplyr)
+df$deaths3 <- case_when(df$Deaths<1171 ~ 'low_death',
+                             df$Deaths<14912 ~ 'mid_death',
+                             TRUE~'high_death')
+table(df$deaths3)
 ```
 
 13. Find the average cases in Rhode Island in 2021
