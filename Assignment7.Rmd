@@ -203,10 +203,11 @@ df %>%
 
 Do the follows. 
 
+
 - Use `geom_point` compare the total vaccines (including all types of vaccines) by date between countries/regions in Asia
 ```{r}
 df %>% 
-  filter(location %in% c('Asian Nations')) %>% 
+  filter(location %in% c('Hong Kong', 'Japan', 'South Korea', 'Nepal')) %>% 
   group_by(date, location) %>% 
   summarize(total_vac = sum(total_vaccinations, na.rm=TRUE)) %>% 
   ggplot()+
@@ -216,7 +217,7 @@ df %>%
 - Use `geom_point` compare the total vaccines (including all types of vaccines) by date between countries/regions in South America in 2021
 ```{r}
 df %>% 
-  filter(location %in% c('South American')) %>% 
+  filter(location %in% c('Argentina', 'Chile', 'Ecuador', 'Peru', 'Uruguay')) %>% 
   group_by(date = 2021, location) %>% 
   summarize(total_vac = sum(total_vaccinations, na.rm=TRUE)) %>% 
   ggplot()+
