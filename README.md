@@ -11,4 +11,4 @@
 - [Assignment 6](Assignment6.html)
 - [Assignment 7](Assignment7.html)
 - [Assignment 7 Extra Credit]()
-- [Assignment 8]()
+- [Assignment 8](Assignment8.html)
