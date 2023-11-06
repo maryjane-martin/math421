@@ -1,0 +1,68 @@
+---
+title: "Midterm"
+author: "Maryjane Martin"
+date: "2023-11-1"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Visualizations 1
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image1.png){width="80%"}
+
+## Visualizations 2
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image2.png){width="80%"}
+
+## Visualizations 3
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image3.png){width="80%"}
+
+## Visualizations 4
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image4.png){width="80%"}
+
+
+## Visualizations 5
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image5.png){width="80%"}
+
+## Visualizations 6
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image6.png){width="80%"}
+
+## Visualizations 7
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image7.png){width="80%"}
+
+## Visualizations 8
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image8.png){width="80%"}
+
+## Visualizations 9
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image9.png){width="80%"}
+
+## Visualizations 10
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image10.png){width="80%"}
+
+## Visualizations 11
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Animation.gif){width="60%"}
+
+## Visualizations 12
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image11.png){width="80%"}
+
+## Visualizations 13
+
+![](C:/Users/student/Desktop/MATH 421-A/math421/Image12.png){width="80%"}
+
+##Comments
+- Knitting
+- Time Management
