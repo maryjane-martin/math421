@@ -18,7 +18,7 @@
 - [Midterm](Midterm_toc.html)
 - [Midterm Presentation](Midterm-Presentation.html)
 - [Assignment 13](Assignment13.html)
-- [Assignment 14]()
+- [Assignment 14](Assignment14.html)
 - [Assignment 14 Extra Credit]()
 - [Assignment 15]()
 
