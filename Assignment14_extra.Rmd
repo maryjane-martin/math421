@@ -1,0 +1,73 @@
+
+---
+output: 
+  html_document:
+  pdf_document: default
+  word_document: default
+title: "Assignment 14 - Extra: Networks of Words"
+---
+
+***How to do it?***: 
+
+- Open the Rmarkdown file of this assignment ([link](assignment14_extra.Rmd)) in Rstudio. 
+
+- Right under each **question**, insert  a code chunk (you can use the hotkey `Ctrl + Alt + I` to add a code chunk) and code the solution for the question. 
+
+- `Knit` the rmarkdown file (hotkey: `Ctrl + Alt + K`) to export an html.  
+
+-  Publish the html file to your Githiub Page. 
+
+***Submission***: Submit the link on Github of the assignment to Canvas
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, cache = TRUE)
+```
+
+-------
+
+Following [this document](https://www.tidytextmining.com/nasa) to plot a network of words for one of the text datasets.
+```{r}
+library(RedditExtractoR) 
+library(tidytext)
+library(ggpubr) 
+library(tidyverse) 
+library(knitr)
+library(lubridate)
+```
+
+```{r, eval=FALSE}
+df1 <- find_thread_urls(sort_by="new", subreddit = 'work')
+```
+```{r, eval=FALSE}
+write_csv(df1, "reddit_work.csv")
+```
+
+```{r}
+df1 = read_csv("reddit_work.csv")
+```
+
+
+```{r}
+library(igraph)
+library(ggraph)
+library(dplyr)
+library(widyr)
+library(tidytext)
+keyword_pairs <- df1 %>% 
+  pairwise_count(date_utc, title, sort = TRUE, upper = FALSE)
+
+keyword_pairs
+set.seed(1234)
+graph <- keyword_pairs %>%
+  filter(n >= 1) %>%
+  graph_from_data_frame(directed = TRUE)
+
+ggraph(graph, layout = "fr") +
+  geom_edge_link(aes(edge_alpha = n, edge_width = n), edge_colour = "royalblue") +
+  geom_node_point(size = 5) +
+  geom_node_text(aes(label = name), repel = TRUE,
+                 point.padding = unit(0.2, "lines")) +
+  theme_void()
+
+```
+
