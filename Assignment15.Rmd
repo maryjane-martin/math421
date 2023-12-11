@@ -41,11 +41,10 @@ birth <- function(x)
   r = (x)
   print(paste0("You are " , r, " age"))
 }
-```
 
-```{r}
 birth(15)
 ```
+
 -------
 
 2. Write the following function. Give an example to test your function. 
@@ -87,24 +86,26 @@ number(3)
   - if the input vector has no missing value: return the same input vector
   
 Hint: [Similar Function](https://bryantstats.github.io/math421/gganimate/17_writing_functions.html#50)
+
 ```{r}
-mode_impute <- function(x)
+mean1 <- function(x)
 {
-  if(!is.numeric(x))
+  if(is.numeric(x))
   {
-    mode_of_x <- names(sort(-table(x)))[1]
+    mean2 <- mean(x, na.rm = TRUE)
     library(tidyr)
-    x <- replace_na(x, mode_of_x) 
+    x <- replace_na(x, mean2) 
   }
 return(x)    
 }
-```
 
-```{r}
 library(tidyverse)
-df <- read_csv('WHO-COVID-19-global-data.csv')
-x1 <- mode_impute(df$Cumulative_cases)
-sum(is.na(x1))
+df <- read.csv('titanic.csv')
+
+sum(is.na(df$Age))
+
+sum(is.na(mean1(df$Age)))
+
 ```
 
 -------
@@ -116,32 +117,38 @@ sum(is.na(x1))
 - Output:  The vector x where the missing values replaced by the mean (if x is numeric) or the mode (if x is non-numeric).  If x does not have missing value, return the same vector x.  
 
 Hint: Use If-statement to combine the function in Question 3 and [this function](https://bryantstats.github.io/math421/gganimate/17_writing_functions.html#49)
+
 ```{r}
-impute_missing <- function(x) 
+mean_mode <- function(x)
+{
+  if(is.numeric(x))
   {
-  if (anyNA(x)) 
-  {
-  if (is.numeric(x)) 
-  {
-      x[is.na(x)] <- mean(x, na.rm = TRUE)
-  } 
-  else 
-  {
-      mode_of_x <- names(sort(-table(x)))[1]
-      x[is.na(x)] <- mode_of_x
+    mean2 <- mean(x, na.rm = TRUE)
+    library(tidyr)
+    x <- replace_na(x, mean2) 
   }
-}
-  return(x)
+  
+  if(!is.numeric(x))
+  {
+    # Find the mode of x
+    mode_of_x <- names(sort(-table(x)))[1]
+    # Replace the missing by the mode
+    library(tidyr)
+    x <- replace_na(x, mode_of_x) 
+  }
+  
+return(x)    
 }
 
+sum(is.na(df$Age))
+
+sum(is.na(mean_mode(df$Age)))
+
+sum(is.na(df$Cabin))
+
+sum(is.na(mean_mode(df$Cabin)))
 ```
 
-```{r}
-library(tidyverse)
-df <- read_csv('WHO-COVID-19-global-data.csv')
-x1 <- mode_impute(df$Cumulative_cases)
-sum(is.na(x1))
-```
 -------
 
 5. Write the following function. Give examples to test your function. 
@@ -165,7 +172,7 @@ Hint:
 ```{r}
 viz <- function(d)
 {
-  if(is.numeric(d[[1]])&is.numeric(d[[2]]))
+  if(is.numeric(d[[1]])&!is.numeric(d[[2]]))
   {
     d %>% ggplot(aes(x = d[[1]], y = d[[2]]))+
       geom_boxplot()+
@@ -182,63 +189,48 @@ viz <- function(d)
     print('This function cannot visualize your data.')
   }
 }
+
+d <- df %>% select(Age, Sex)
+viz(d)
+
 ```
 
-
 ```{r}
-d <- df %>% select(Date_reported, Cumulative_deaths)
+df$Sex <- factor(df$Sex)
+d <- df %>% select(Sex, Age)
 viz(d)
 ```
  
 -------
  
 6. Combine the function in Question 5 and the function in this example ([Link](https://bryantstats.github.io/math421/gganimate/17_writing_functions.html#53)) to have a function that can plot all possible cases (2 categorical, 2 numeric, 1 numeric and 1 categorical). 
+
 ```{r}
-impute_missing <- function(x) {
-  if (anyNA(x)) {
-    if (is.numeric(x)) {
-      x[is.na(x)] <- mean(x, na.rm = TRUE)
-    } else {
-      mode_of_x <- names(sort(-table(x)))[1]
-      x[is.na(x)] <- mode_of_x
-    }
-  }
-  return(x)
-}
+viz <- function(d) 
+{
+  if (is.numeric(d[[1]]) && is.numeric(d[[2]])) {
+    ggplot(d, aes(x = d[[1]], y = d[[2]])) +
+      geom_boxplot() +
+      labs(x = names(d)[1], y = names(d)[2])
+  } else if (!is.numeric(d[[1]]) && is.numeric(d[[2]])) {
+    ggplot(d, aes(x = d[[1]], y = d[[2]])) +
+      geom_boxplot() +
+      labs(x = names(d)[1], y = names(d)[2])
+  } else if (is.numeric(d[[1]]) && !is.numeric(d[[2]])) {
+    ggplot(d, aes(x = d[[1]], fill = d[[2]])) +
+      geom_boxplot(position = 'dodge') +
+      labs(x = names(d)[1], fill = names(d)[2])
+  } else if (!is.numeric(d[[1]]) && !is.numeric(d[[2]])) {
+    ggplot(d, aes(x = d[[1]], fill = d[[2]])) +
+      geom_bar(position = 'dodge') +
+      labs(x = names(d)[1], fill = names(d)[2])
+}}
 
-plot_data <- function(data, x_var, y_var, group_var = NULL, type = "scatter") {
-  data[[x_var]] <- impute_missing(data[[x_var]])
-  data[[y_var]] <- impute_missing(data[[y_var]])
+```
 
-  if (type == "scatter") {
-    if (!is.null(group_var)) {
-      ggplot(data, aes_string(x = x_var, y = y_var, color = group_var)) +
-        geom_point() +
-        labs(x = x_var, y = y_var, color = group_var) +
-        ggtitle("Scatter Plot")
-    } else {
-      ggplot(data, aes_string(x = x_var, y = y_var)) +
-        geom_point() +
-        labs(x = x_var, y = y_var) +
-        ggtitle("Scatter Plot")
-    }
-  } else if (type == "bar") {
-    if (!is.null(group_var)) {
-      ggplot(data, aes_string(x = x_var, fill = group_var)) +
-        geom_bar() +
-        labs(x = x_var, fill = group_var) +
-        ggtitle("Bar Plot")
-    } else {
-      ggplot(data, aes_string(x = x_var)) +
-        geom_bar() +
-        labs(x = x_var) +
-        ggtitle("Bar Plot")
-    }
-  } else {
-    print("Invalid plot type. Choose 'scatter' or 'bar'.")
-  }
-}
-
+```{r}
+d <- df %>% select(Age, Sex)
+viz(d)
 ```
 
 -------
